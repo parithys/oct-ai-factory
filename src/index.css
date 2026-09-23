@@ -1,0 +1,212 @@
+/* Shell Design System — system sans-serif stack, no external font imports */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Shell Brand Colors (HSL) */
+    --shell-yellow: 49 97% 51%;
+    --shell-red: 359 78% 49%;
+    --ink-dark: 240 28% 14%;
+    --ink-mid: 240 20% 35%;
+    --ink-light: 240 10% 42%;
+    --surface-base: 240 14% 97%;
+    --surface-card: 0 0% 100%;
+    --surface-elevated: 240 18% 95%;
+    --accent-blue: 224 53% 37%;
+    --accent-green: 152 64% 29%;
+    --accent-amber: 35 88% 35%;
+    --border-subtle: 240 16% 90%;
+    --border-strong: 240 10% 77%;
+
+    /* Mapped to shadcn tokens */
+    --background: 240 14% 97%;
+    --foreground: 240 28% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 28% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 28% 14%;
+    --primary: 49 97% 51%;
+    --primary-foreground: 240 28% 14%;
+    --secondary: 240 18% 95%;
+    --secondary-foreground: 240 28% 14%;
+    --muted: 240 18% 95%;
+    --muted-foreground: 240 20% 27%;
+    --accent: 224 53% 37%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 359 78% 49%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 16% 90%;
+    --input: 240 16% 90%;
+    --ring: 224 53% 37%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 240 28% 14%;
+    --sidebar-foreground: 240 14% 97%;
+    --sidebar-primary: 49 97% 51%;
+    --sidebar-primary-foreground: 240 28% 14%;
+    --sidebar-accent: 240 28% 20%;
+    --sidebar-accent-foreground: 240 14% 97%;
+    --sidebar-border: 240 28% 22%;
+    --sidebar-ring: 49 97% 51%;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Typography */
+    --font-display: Arial, Helvetica, sans-serif;
+    --font-body: Arial, Helvetica, sans-serif;
+    --font-mono: 'Courier New', Courier, monospace;
+    --text-xs: 11px;
+    --text-sm: 13px;
+    --text-base: 15px;
+    --text-lg: 17px;
+    --text-xl: 20px;
+    --text-2xl: 26px;
+    --text-3xl: 34px;
+    --text-4xl: 44px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(26,26,46,0.08);
+    --shadow-md: 0 4px 12px rgba(26,26,46,0.12);
+    --shadow-lg: 0 12px 32px rgba(26,26,46,0.16);
+    --shadow-xl: 0 24px 64px rgba(26,26,46,0.20);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+  }
+
+  .dark {
+    --surface-base: 240 33% 8%;
+    --surface-card: 240 33% 13%;
+    --surface-elevated: 240 28% 16%;
+    --ink-dark: 240 50% 97%;
+    --ink-mid: 240 12% 70%;
+    --ink-light: 240 8% 50%;
+    --border-subtle: 240 20% 20%;
+    --border-strong: 240 15% 30%;
+
+    --background: 240 33% 8%;
+    --foreground: 240 50% 97%;
+    --card: 240 33% 13%;
+    --card-foreground: 240 50% 97%;
+    --popover: 240 33% 13%;
+    --popover-foreground: 240 50% 97%;
+    --primary: 49 97% 51%;
+    --primary-foreground: 240 28% 14%;
+    --secondary: 240 28% 16%;
+    --secondary-foreground: 240 50% 97%;
+    --muted: 240 28% 16%;
+    --muted-foreground: 240 18% 55%;
+    --accent: 224 53% 47%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 359 78% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 20% 20%;
+    --input: 240 20% 20%;
+    --ring: 224 53% 47%;
+
+    --sidebar-background: 240 33% 6%;
+    --sidebar-foreground: 240 50% 97%;
+    --sidebar-primary: 49 97% 51%;
+    --sidebar-primary-foreground: 240 28% 14%;
+    --sidebar-accent: 240 33% 12%;
+    --sidebar-accent-foreground: 240 50% 97%;
+    --sidebar-border: 240 20% 15%;
+    --sidebar-ring: 49 97% 51%;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+    --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Shell: 200ms transitions on interactive elements */
+  button, a, [role="button"], [tabindex="0"] {
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+}
+
+@layer utilities {
+  .text-display {
+    font-family: var(--font-display);
+  }
+  .text-body {
+    font-family: var(--font-body);
+  }
+  .text-code {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Always show horizontal scrollbar when content overflows */
+.overflow-x-auto {
+  overflow-x: scroll;
+}
+
+/* Style scrollbars for visibility */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.4);
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.6);
+}
+
+/* Firefox */
+.overflow-x-auto {
+  scrollbar-width: auto;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.4) hsl(var(--muted));
+}
