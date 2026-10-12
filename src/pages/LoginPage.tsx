@@ -5,8 +5,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import shellLogo from '@/assets/shell-logo.png';
 import loginHeroBg from '@/assets/login-hero-bg.jpg';
 
-const VALID_EMAIL = 'user@upstreamai.com';
-const VALID_PASSWORD = 'W!pr0';
+const VALID_EMAIL = import.meta.env.VITE_LOGIN_EMAIL;
+const VALID_PASSWORD = import.meta.env.VITE_LOGIN_PASSWORD;
 
 export default function LoginPage() {
   const { dispatch } = useApp();
@@ -20,6 +20,10 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    if (!VALID_EMAIL || !VALID_PASSWORD) {
+      setError('Login is not configured. Set VITE_LOGIN_EMAIL and VITE_LOGIN_PASSWORD.');
+      return;
+    }
     if (email === VALID_EMAIL && password === VALID_PASSWORD) {
       dispatch({ type: 'LOGIN' });
       addToast(dispatch, 'success', 'Welcome to Shell AI Factory', 'Signed in successfully');
@@ -93,7 +97,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="user@upstreamai.com"
+                placeholder="you@company.com"
                 required
                 className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               />
